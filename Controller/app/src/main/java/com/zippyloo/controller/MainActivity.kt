@@ -12,8 +12,8 @@ import kotlin.concurrent.thread
 class MainActivity : Activity() {
     private lateinit var ip: EditText
     private lateinit var pin: EditText
-    private lateinit var x: EditText
-    private lateinit var y: EditText
+    private lateinit var xInput: EditText
+    private lateinit var yInput: EditText
     private lateinit var status: TextView
     @Volatile private var token: String? = null
 
@@ -29,8 +29,8 @@ class MainActivity : Activity() {
         root.addView(status)
         root.addView(TextView(this).apply { text = "Manual screen tap (0–1000 scale)"; textSize = 16f; gravity = Gravity.CENTER })
         val coords = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        x = field("X 0–1000"); y = field("Y 0–1000"); coords.addView(x, LinearLayout.LayoutParams(0, -2, 1f)); coords.addView(y, LinearLayout.LayoutParams(0, -2, 1f)); root.addView(coords)
-        root.addView(Button(this).apply { text = "SEND TAP"; setOnClickListener { val xx = x.text.toString().toFloatOrNull(); val yy = y.text.toString().toFloatOrNull(); if (xx == null || yy == null || xx !in 0f..1000f || yy !in 0f..1000f) status.text = "Enter X/Y from 0 to 1000" else sendTap(xx / 1000f, yy / 1000f) } })
+        xInput = field("X 0–1000"); yInput = field("Y 0–1000"); coords.addView(xInput, LinearLayout.LayoutParams(0, -2, 1f)); coords.addView(yInput, LinearLayout.LayoutParams(0, -2, 1f)); root.addView(coords)
+        root.addView(Button(this).apply { text = "SEND TAP"; setOnClickListener { val xx = xInput.text.toString().toFloatOrNull(); val yy = yInput.text.toString().toFloatOrNull(); if (xx == null || yy == null || xx !in 0f..1000f || yy !in 0f..1000f) status.text = "Enter X/Y from 0 to 1000" else sendTap(xx / 1000f, yy / 1000f) } })
         root.addView(TextView(this).apply { text = "\nConnect both phones to the same Wi-Fi/Hotspot. Enter the Helper IP and PIN shown on the Helper phone. Coordinates must be calibrated manually."; textSize = 13f; gravity = Gravity.CENTER })
         setContentView(root)
     }
