@@ -30,7 +30,7 @@ class MainActivity : Activity() {
         root.addView(TextView(this).apply { text = "Manual screen tap (0–1000 scale)"; textSize = 16f; gravity = Gravity.CENTER })
         val coords = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
         x = field("X 0–1000"); y = field("Y 0–1000"); coords.addView(x, LinearLayout.LayoutParams(0, -2, 1f)); coords.addView(y, LinearLayout.LayoutParams(0, -2, 1f)); root.addView(coords)
-        root.addView(Button(this).apply { text = "SEND TAP"; setOnClickListener { val xx = x.getText().toString().toFloatOrNull(); val yy = y.getText().toString().toFloatOrNull(); if (xx == null || yy == null || xx !in 0f..1000f || yy !in 0f..1000f) status.text = "Enter X/Y from 0 to 1000" else sendTap(xx / 1000f, yy / 1000f) } })
+        root.addView(Button(this).apply { text = "SEND TAP"; setOnClickListener { val xx = x.text.toString().toFloatOrNull(); val yy = y.text.toString().toFloatOrNull(); if (xx == null || yy == null || xx !in 0f..1000f || yy !in 0f..1000f) status.text = "Enter X/Y from 0 to 1000" else sendTap(xx / 1000f, yy / 1000f) } })
         root.addView(TextView(this).apply { text = "\nConnect both phones to the same Wi-Fi/Hotspot. Enter the Helper IP and PIN shown on the Helper phone. Coordinates must be calibrated manually."; textSize = 13f; gravity = Gravity.CENTER })
         setContentView(root)
     }
